@@ -5,21 +5,20 @@ function Question({ question, onAnswered }) {
 
   // add useEffect code
   useEffect(()=> {
-    
-      
+      let timeoutID
       if (timeRemaining > 0){
-
-        const timeoutID = setTimeout(()=>{
+        timeoutID = setTimeout(()=>{
         setTimeRemaining(timeRemaining - 1)
       }, 1000)
       
-      return function cleanup(){
-        clearInterval(timeoutID)
-      }
 
     }else {
         setTimeRemaining(10)
         onAnswered(false)
+      }
+
+      return function cleanup(){
+        clearTimeout(timeoutID)
       }
     
   }, [timeRemaining, onAnswered])
